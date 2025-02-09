@@ -1,13 +1,111 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
-<head>
-	<meta charset="UTF-8" />
-	<title>Register Page</title>
-</head>
-<body>
-	<section>
-		<h1>This is Register Page</h1>
-		<h2>We are building Spring boot Register Page</h2>
-	</section>
-</body>
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="base::layout(~{::section})"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Register Page</title>
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="my-card mt-3">
+              <div
+                th:if="${session.message}"
+                th:classappend="${session.message.type}"
+                class="alert"
+                role="alert"
+              >
+                <p class="text-center" th:text="${session.message.content}"></p>
+				<!--
+                <th:block
+                  th:text="${session.removeAttribute('message')}"
+                ></th:block>-->
+              </div>
+              <div class="container text-center">
+                <img style="width: 80px" th:src="@{/images/membership.png}" />
+              </div>
+              <h1 class="text-center mt-2">Register Here</h1>
+              <form
+                th:action="@{/do_register}"
+                method="post"
+                th:object="${user}"
+              >
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="name_field">Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="name_field"
+                      name="name"
+                      placeholder="Enter Name"
+                      th:value="${user.name}"
+                      required
+                    />
+                  </div>
+                  <div class="form-group mt-3">
+                    <label for="email_field">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email_field"
+                      name="email"
+                      placeholder="Email"
+                      th:value="${user.email}"
+                      required
+                    />
+                  </div>
+                  <div class="form-group mt-3">
+                    <label for="password_field">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      name="password"
+                      id="password_field"
+                      th:value="${user.password}"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <div class="form-group mt-3">
+                    <label for="about_field">About</label>
+                    <textarea
+                      class="form-control"
+                      id="about_field"
+                      name="about"
+                      rows="5"
+                      placeholder="Enter Something Here"
+                      th:text="${user.about}"
+                      required
+                    ></textarea>
+                  </div>
+                  <div class="form-group form-check mt-3">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      name="agreement"
+                      id="agreement"
+                    />
+                    <label class="form-check-label" for="agreement"
+                      >Accept Terms & Conditions</label
+                    >
+                  </div>
+                  <div class="container text-center mt-3">
+                    <button type="submit" class="btn btn-primary me-2">
+                      Submit
+                    </button>
+                    <button type="reset" class="btn btn-warning">Reset</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>
