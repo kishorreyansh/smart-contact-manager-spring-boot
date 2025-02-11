@@ -21,7 +21,7 @@
                 role="alert"
               >
                 <p class="text-center" th:text="${session.message.content}"></p>
-				<!--
+                <!--
                 <th:block
                   th:text="${session.removeAttribute('message')}"
                 ></th:block>-->
@@ -34,6 +34,7 @@
                 th:action="@{/do_register}"
                 method="post"
                 th:object="${user}"
+                novalidate
               >
                 <div class="form-row">
                   <div class="form-group">
@@ -45,8 +46,14 @@
                       name="name"
                       placeholder="Enter Name"
                       th:value="${user.name}"
+                      th:classappend="${#fields.hasErrors('name')? 'is-invalid':''}"
                       required
                     />
+                    <div 
+                      class="invalid-feedback"
+                      th:each="e : ${#fields.errors('name')}"
+                      th:text="${e}">
+                    </div>
                   </div>
                   <div class="form-group mt-3">
                     <label for="email_field">Email</label>
@@ -57,8 +64,14 @@
                       name="email"
                       placeholder="Email"
                       th:value="${user.email}"
+                      th:classappend="${#fields.hasErrors('email')? 'is-invalid' : ' ' }"
                       required
                     />
+                    <div 
+                      class="invalid-feedback"
+                      th:each="e : ${#fields.errors('email')}"
+                      th:text="${e}">
+                    </div>
                   </div>
                   <div class="form-group mt-3">
                     <label for="password_field">Password</label>

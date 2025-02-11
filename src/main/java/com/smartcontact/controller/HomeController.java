@@ -3,6 +3,7 @@ package com.smartcontact.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,7 @@ import com.smartcontact.helper.Message;
 import com.smartcontact.repository.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class HomeController {
@@ -41,12 +43,17 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/do_register", method = RequestMethod.POST)
-	public String register(@ModelAttribute("user") User user,
+	public String register(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
 			@RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model model, HttpSession session) {
 		try{
 			if(!agreement){
 				System.out.println("YOU HAVE NOT AGREED THE TERMS AND CONDITION");
 				throw new Exception("YOU HAVE NOT AGREED THE TERMS AND CONDITION");
+			}
+			if(bindingResult.hasErrors()) {
+				System.out.println("ERROR "+bindingResult.toString());
+				model.addAttribute("user", user);
+				return "signup";
 			}
 			user.setRole("ROLE_USER");
 			user.setEnabled(true);

@@ -12,6 +12,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "USER")
@@ -20,8 +23,12 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
+	@NotBlank(message = "User Name cannot be empty !!")
+	@Size(min = 3, max = 12, message = "User Name must be between 3 - 12 characters")
 	private String name;
 	@Column(unique = true)
+	@Email(regexp = "^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$",message = "Please Enter Email")
 	private String email;
 	private String password;
 	private String role;
