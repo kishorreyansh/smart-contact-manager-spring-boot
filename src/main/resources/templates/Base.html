@@ -49,7 +49,11 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#" tabindex="-1" aria-disabled="true"
+              <a
+                class="nav-link"
+                th:href="@{/signin}"
+                tabindex="-1"
+                aria-disabled="true"
                 >Login</a
               >
             </li>
@@ -68,7 +72,7 @@
       </div>
     </nav>
     <!--  End of Nav Bar -->
-	
+
     <div th:replace="${content}"></div>
 
     <!-- Optional JavaScript; choose one of the two! -->
