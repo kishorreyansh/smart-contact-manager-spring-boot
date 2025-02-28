@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="normal/base::layout(~{::section})"
+>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Dashboard</title>
+    <title>This is Home Page</title>
   </head>
   <body>
-    <h1>Welcome Normal User,</h1>
-    <h1>This is your private dashboard</h1>
+    <section>
+      <h1>This is Private Dashboard Page</h1>
+    </section>
   </body>
 </html>
